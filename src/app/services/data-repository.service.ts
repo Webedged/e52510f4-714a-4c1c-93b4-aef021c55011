@@ -1,15 +1,48 @@
 import {Injectable} from "@angular/core";
-import {EventItem} from "../models/event-list.model";
+import {EventItem, EventsByDate} from "../models/event-list.model";
+import {ShoppingCart} from "../models/shopping-cart.model";
 
 @Injectable({
     providedIn: "root"
 })
 export class DataRepositoryService {
+    allEventItems = {} as EventsByDate;
+    tmpAllEventItems = {} as EventsByDate;
+    allCartItems = {} as ShoppingCart;
 
     constructor() {
     }
 
-    getDummyData(): Promise<EventItem[]> {
+    public async initAllEvents() {
+        const data: EventsByDate = this.sortDataByDate(await this.getDummyData());
+        this.allEventItems = data;
+        this.tmpAllEventItems = data;
+        this.allCartItems.items = [];
+    }
+
+    sortDataByDate(data: EventItem[]): any {
+        function groupEventsByDate(events: any[]): { [key: string]: any[] } {
+            const groupedEvents: { [key: string]: any[] } = {};
+
+            // Durchlaufe die Events und gruppiere sie nach Datum
+            events.forEach((event) => {
+                const date = event.date.split("T")[0]; // Extrahiere das Datum ohne Uhrzeit
+                event.date = date;
+                if (!groupedEvents[date]) {
+                    // Wenn das Datum noch nicht im Objekt existiert, erstelle ein leeres Array dafür
+                    groupedEvents[date] = [];
+                }
+                // Füge das Event zum entsprechenden Datum hinzu
+                groupedEvents[date].push(event);
+            });
+
+            return groupedEvents;
+        }
+
+        return groupEventsByDate(data);
+    }
+
+    private getDummyData(): Promise<EventItem[]> {
         return new Promise((resolve, reject) => {
             const data: EventItem[] = [
                 {
@@ -6932,3 +6965,4 @@ export class DataRepositoryService {
         });
     }
 }
+

@@ -1,4 +1,5 @@
-<header></header>
+<header (cartToggleChanged)="handleToggleCart($event)" (searchBarInputTriggered)="handleSearchBarInput($event)"></header>
+<app-cart-modal (toggleCartChanged)="handleToggleCart($event)" [toggleCart]="toggleCart"></app-cart-modal>
 <div class="p-4" id="container">
     <router-outlet></router-outlet>
 </div>

@@ -8,21 +8,24 @@ import {SettingsComponent} from "./pages/settings/settings.component";
 import {HeaderComponent} from "./components/header/header.component";
 import {EventItemComponent} from "./components/event-item/event-item.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {CartModalComponent} from "./components/cart-modal/cart-modal.component";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    EventsComponent,
-    SettingsComponent,
-    HeaderComponent,
-    EventItemComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FontAwesomeModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        EventsComponent,
+        SettingsComponent,
+        HeaderComponent,
+        EventItemComponent,
+        CartModalComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        FontAwesomeModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

@@ -1,3 +1,7 @@
+export interface EventsByDate {
+    [date: string]: EventItem[];
+}
+
 export interface EventItem {
     _id: string;
     title: string;

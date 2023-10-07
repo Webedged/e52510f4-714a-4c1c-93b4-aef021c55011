@@ -1,6 +1,9 @@
 <nav class="bg-blue-500 p-4">
     <div class="container mx-auto flex items-center justify-between">
         <a class="text-white text-xl font-bold">e52510f4-714a-4c1c-93b4-aef021c55011</a>
+        <div class="relative">
+            <input (input)="searchInputFieldHandler($event)" class="px-4 py-2 rounded-full w-64 focus:outline-none focus:ring focus:border-blue-300" placeholder="Suchen..." type="text"/>
+        </div>
         <div class="space-x-8">
             <ng-container *ngFor="let item of navItems">
                 <a (click)="navTo(item.link)" [ngClass]="{'!text-white': item.active}" class="text-gray-300 cursor-pointer hover:text-blue-200">
@@ -8,12 +11,16 @@
                     {{ item.text }}
                 </a>
             </ng-container>
-        </div>
-        <div class="relative">
-            <input class="px-4 py-2 rounded-full w-64 focus:outline-none focus:ring focus:border-blue-300" placeholder="Suchen..." type="text"/>
-            <button class="absolute inset-y-0 right-0 px-3 py-2 bg-blue-700 text-white rounded-r-full hover:bg-blue-600">
-                <i class="fas fa-search"></i>
-            </button>
+
+            <div (click)="toggleCart(!cartToggle)" class="relative inline-block">
+                <a class="text-white cursor-pointer hover:text-blue-200">
+                    <fa-icon [icon]="faShoppingCart"></fa-icon>
+                </a>
+                <div class="bg-red-400 text-white text-xs font-semibold rounded-full w-4 h-4 absolute top-0 right-0 -mt-1 -mr-1 flex items-center justify-center">
+                    {{dataRepo.allCartItems.items.length}}
+                </div>
+            </div>
+
         </div>
     </div>
 </nav>

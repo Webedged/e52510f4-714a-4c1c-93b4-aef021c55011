@@ -1,8 +1,9 @@
-import {Component} from "@angular/core";
+import {Component, EventEmitter, Output} from "@angular/core";
 import {NavigationService} from "../../services/navigation.service";
-import {faCalendar, faCog} from "@fortawesome/free-solid-svg-icons";
+import {faCalendar, faCog, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import {NavItem} from "../../models/navigation.models";
 import {Router} from "@angular/router";
+import {DataRepositoryService} from "../../services/data-repository.service";
 
 @Component({
     selector: "header",
@@ -24,12 +25,17 @@ export class HeaderComponent {
             active: false
         },
     ];
+    @Output() cartToggleChanged = new EventEmitter<boolean>;
+    @Output() searchBarInputTriggered = new EventEmitter<string>;
 
     faCog = faCog;
     faCalendar = faCalendar;
     currentUrl: string = "";
 
-    constructor(private navHandler: NavigationService, private router: Router) {
+    cartToggle: boolean = false;
+    protected readonly faShoppingCart = faShoppingCart;
+
+    constructor(private navHandler: NavigationService, private router: Router, public dataRepo: DataRepositoryService) {
         this.refreshNavigationBar();
     }
 
@@ -54,4 +60,16 @@ export class HeaderComponent {
             }
         }
     }
+
+    public toggleCart(toggle: boolean) {
+        this.cartToggleChanged.emit(toggle);
+    }
+
+    public searchInputFieldHandler(ev: Event): void {
+        if (ev.target instanceof HTMLInputElement) {
+            const value = ev.target.value;
+            this.searchBarInputTriggered.emit(value);
+        }
+    }
+
 }
