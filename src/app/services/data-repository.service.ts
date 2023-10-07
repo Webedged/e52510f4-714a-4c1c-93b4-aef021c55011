@@ -1,6 +1,8 @@
 import {Injectable} from "@angular/core";
 import {EventItem, EventsByDate} from "../models/event-list.model";
 import {ShoppingCart} from "../models/shopping-cart.model";
+import {HttpClient} from "@angular/common/http";
+import {firstValueFrom} from "rxjs";
 
 @Injectable({
     providedIn: "root"
@@ -10,11 +12,11 @@ export class DataRepositoryService {
     tmpAllEventItems = {} as EventsByDate;
     allCartItems = {} as ShoppingCart;
 
-    constructor() {
+    constructor(private http: HttpClient) {
     }
 
     public async initAllEvents() {
-        const data: EventsByDate = this.sortDataByDate(await this.getDummyData());
+        const data: EventsByDate = this.sortDataByDate(await this.getApiData());
         this.allEventItems = data;
         this.tmpAllEventItems = data;
         this.allCartItems.items = [];
@@ -40,6 +42,18 @@ export class DataRepositoryService {
         }
 
         return groupEventsByDate(data);
+    }
+
+    private async getApiData(): Promise<EventItem[]> {
+        const apiUrl = "https://teclead-ventures.github.io/data/london-events.json";
+        const observable = this.http.get(apiUrl);
+        let resp: EventItem[] | any;
+        try {
+            resp = await firstValueFrom(observable);
+        } catch (e) {
+            resp = e;
+        }
+        return resp;
     }
 
     private getDummyData(): Promise<EventItem[]> {

@@ -9,6 +9,7 @@ import {HeaderComponent} from "./components/header/header.component";
 import {EventItemComponent} from "./components/event-item/event-item.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {CartModalComponent} from "./components/cart-modal/cart-modal.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import {CartModalComponent} from "./components/cart-modal/cart-modal.component";
     imports: [
         BrowserModule,
         AppRoutingModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent]

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {EventItem} from "../../models/event-list.model";
-import {faClose, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faClose, faLocationDot, faPlus} from "@fortawesome/free-solid-svg-icons";
 
 @Component({
     selector: "event-item",
@@ -14,6 +14,7 @@ export class EventItemComponent {
     @Output() cartItemRemove: EventEmitter<EventItem> = new EventEmitter<EventItem>;
     faPlus = faPlus;
     faClose = faClose;
+    faLocationDot = faLocationDot;
 
     addCartItem(item: EventItem) {
         this.cartItemAdd.emit(item);

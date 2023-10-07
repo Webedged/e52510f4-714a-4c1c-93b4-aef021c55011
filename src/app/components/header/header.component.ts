@@ -4,6 +4,7 @@ import {faCalendar, faCog, faShoppingCart} from "@fortawesome/free-solid-svg-ico
 import {NavItem} from "../../models/navigation.models";
 import {Router} from "@angular/router";
 import {DataRepositoryService} from "../../services/data-repository.service";
+import {data} from "autoprefixer";
 
 @Component({
     selector: "header",
@@ -44,22 +45,7 @@ export class HeaderComponent {
         this.refreshNavigationBar();
     }
 
-    private refreshNavigationBar() {
-        const currentUrl = this.navHandler.readCurrentPageFromUrl();
-        const activeNavItem: NavItem | undefined = this.navItems.find((item: NavItem) => {
-            return item.link === currentUrl;
-        });
-
-        if (activeNavItem) {
-            activeNavItem.active = true;
-            // Setze alle anderen Elemente auf active = false
-            for (const item of this.navItems) {
-                if (item !== activeNavItem) {
-                    item.active = false;
-                }
-            }
-        }
-    }
+    protected readonly data = data;
 
     public toggleCart(toggle: boolean) {
         this.cartToggleChanged.emit(toggle);
@@ -72,4 +58,24 @@ export class HeaderComponent {
         }
     }
 
+    private refreshNavigationBar() {
+        const currentUrl = this.navHandler.readCurrentPageFromUrl();
+        const activeNavItem: NavItem | undefined = this.navItems.find((item: NavItem) => {
+            return item.link === currentUrl;
+        });
+
+        if (currentUrl === "/") {
+            this.navItems[0].active = true;
+        }
+
+        if (activeNavItem) {
+            activeNavItem.active = true;
+            // Setze alle anderen Elemente auf active = false
+            for (const item of this.navItems) {
+                if (item !== activeNavItem) {
+                    item.active = false;
+                }
+            }
+        }
+    }
 }

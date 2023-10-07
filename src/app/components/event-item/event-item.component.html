@@ -8,12 +8,14 @@
     </div>
 
     <!-- Event-Bild -->
-    <img [src]="eventItem.flyerFront ?? 'https://i0.wp.com/blankhans.io/wp-content/uploads/2021/08/placeholder.png?w=1200&ssl=1'" alt="Veranstaltungsbild" class="w-full">
+    <img [src]="eventItem.flyerFront ?? 'https://i0.wp.com/blankhans.io/wp-content/uploads/2021/08/placeholder.png?w=1200&ssl=1'" alt="Veranstaltungsbild" class="w-full" loading="lazy">
 
     <!-- Footer -->
     <div class="p-4">
         <!-- Ort -->
-        <div class="text-gray-500"><a [href]="eventItem.venue.direction" target="_blank">{{eventItem.venue.name}}</a></div>
+        <div class="text-gray-500">
+            <fa-icon [icon]="faLocationDot" class="text-blue-700 mr-2"></fa-icon>
+            <a [href]="eventItem.venue.direction" target="_blank">{{eventItem.venue.name}}</a></div>
         <!-- Start- und Endzeit -->
         <div class="text-gray-500">Startzeit: {{eventItem.startTime | date: 'dd.MM.yyyy HH:mm:ss'}}</div>
         <div class="text-gray-500">Endzeit: {{eventItem.endTime | date: 'dd.MM.yyyy HH:mm:ss'}}</div>
