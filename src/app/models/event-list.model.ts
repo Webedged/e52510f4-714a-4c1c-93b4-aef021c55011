@@ -1,20 +1,20 @@
 export interface EventItem {
     _id: string;
     title: string;
-    flyerFront?: string;
+    flyerFront?: string | null;
     attending: number;
     date: string;
-    startTime: string;
-    endTime: string;
+    startTime?: string | null; // startTime ist optional
+    endTime?: string | null;   // endTime ist optional
     contentUrl: string;
     venue: {
         id: string;
         name: string;
-        contentUrl: string;
+        contentUrl: string | null;
         live: boolean;
         direction: string;
     };
-    pick: {
+    pick?: {
         id: string;
         blurb: string;
     };
@@ -30,3 +30,5 @@ export interface EventItem {
     private: boolean;
     __v: number;
 }
+
+

@@ -1,1 +1,27 @@
-<p>event-item works!</p>
+<div class="bg-white shadow-md rounded-lg overflow-hidden m-4 relative">
+    <!-- Header -->
+    <div class="p-4 flex items-center">
+        <!-- Profilbild (links oben) -->
+        <div class="min-w-[3rem] min-h-[3rem] rounded-full bg-gray-300 mr-4"></div>
+        <!-- Titel -->
+        <div class="font-semibold text-lg">{{item.title}}</div>
+    </div>
+
+    <!-- Event-Bild -->
+    <img [src]="item.flyerFront ?? 'https://i0.wp.com/blankhans.io/wp-content/uploads/2021/08/placeholder.png?w=1200&ssl=1'" alt="Veranstaltungsbild" class="w-full">
+
+    <!-- Footer -->
+    <div class="p-4">
+        <!-- Ort -->
+        <div class="text-gray-500">Veranstaltungsort: {{item.venue.name}}</div>
+        <!-- Start- und Endzeit -->
+        <div class="text-gray-500">Startzeit: {{item.startTime | date: 'dd.MM.yyyy HH:mm:ss'}}</div>
+        <div class="text-gray-500">Endzeit: {{item.endTime | date: 'dd.MM.yyyy HH:mm:ss'}}</div>
+    </div>
+    <!-- Fab-Button -->
+    <div class="bg-blue-700 max-w-[2rem] max-h-[2rem] rounded-full p-3 right-4 bottom-4 absolute flex items-center justify-center cursor-pointer">
+        <fa-icon [icon]="faPlus" class="text-white p-0 m-0"></fa-icon>
+    </div>
+
+
+</div>
