@@ -4,7 +4,6 @@ import {faCalendar, faCog, faShoppingCart} from "@fortawesome/free-solid-svg-ico
 import {NavItem} from "../../models/navigation.models";
 import {Router} from "@angular/router";
 import {DataRepositoryService} from "../../services/data-repository.service";
-import {data} from "autoprefixer";
 
 @Component({
     selector: "header",
@@ -26,14 +25,14 @@ export class HeaderComponent {
             active: false
         },
     ];
-    @Output() cartToggleChanged = new EventEmitter<boolean>;
-    @Output() searchBarInputTriggered = new EventEmitter<string>;
+    @Output() cartToggleChanged = new EventEmitter<boolean>();
+    @Output() searchBarInputTriggered = new EventEmitter<string>();
 
     faCog = faCog;
     faCalendar = faCalendar;
     currentUrl: string = "";
 
-    cartToggle: boolean = false;
+    cartToggle = false;
     protected readonly faShoppingCart = faShoppingCart;
 
     constructor(private navHandler: NavigationService, private router: Router, public dataRepo: DataRepositoryService) {
@@ -44,8 +43,6 @@ export class HeaderComponent {
         await this.router.navigate([link]);
         this.refreshNavigationBar();
     }
-
-    protected readonly data = data;
 
     public toggleCart(toggle: boolean) {
         this.cartToggleChanged.emit(toggle);

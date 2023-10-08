@@ -10,6 +10,7 @@ import {EventItemComponent} from "./components/event-item/event-item.component";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {CartModalComponent} from "./components/cart-modal/cart-modal.component";
 import {HttpClientModule} from "@angular/common/http";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import {HttpClientModule} from "@angular/common/http";
         BrowserModule,
         AppRoutingModule,
         FontAwesomeModule,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule
     ],
     providers: [],
     bootstrap: [AppComponent]

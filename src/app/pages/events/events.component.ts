@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {DataRepositoryService} from "../../services/data-repository.service";
-import {EventItem} from "../../models/event-list.model";
+import {EventItem} from "../../models/event-list.models";
 
 @Component({
     selector: "app-events",
@@ -8,7 +8,10 @@ import {EventItem} from "../../models/event-list.model";
     styleUrls: ["./events.component.scss"]
 })
 export class EventsComponent implements OnInit {
+    columnCount: number = 0;
+
     constructor(public dataRepo: DataRepositoryService) {
+        this.columnCount = parseInt(<string>dataRepo.getSettingFromLS("SETTING_NUMB_COLS"), 10);
     }
 
     public async ngOnInit(): Promise<void> {
@@ -26,9 +29,12 @@ export class EventsComponent implements OnInit {
                 return cartItem._id !== item._id;
             });
         }
-
-        console.log(this.dataRepo.allCartItems);
     }
 
-
+    public getColumnWidth(columnCount: number): string {
+        if (!columnCount) {
+            columnCount = 4;
+        }
+        return (100 / columnCount) + "%";
+    }
 }

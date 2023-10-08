@@ -1,26 +1,20 @@
 <div class="bg-white shadow-md rounded-lg overflow-hidden m-4 relative">
-    <!-- Header -->
     <div class="p-4 flex items-center">
-        <!-- Profilbild (links oben) -->
         <div class="min-w-[3rem] min-h-[3rem] rounded-full bg-gray-300 mr-4"></div>
-        <!-- Titel -->
-        <div class="font-semibold text-lg">{{eventItem.title}}</div>
+        <div class="font-semibold text-lg">{{ eventItem.title }}</div>
     </div>
 
-    <!-- Event-Bild -->
     <img [src]="eventItem.flyerFront ?? 'https://i0.wp.com/blankhans.io/wp-content/uploads/2021/08/placeholder.png?w=1200&ssl=1'" alt="Veranstaltungsbild" class="w-full" loading="lazy">
 
-    <!-- Footer -->
     <div class="p-4">
-        <!-- Ort -->
         <div class="text-gray-500">
             <fa-icon [icon]="faLocationDot" class="text-blue-700 mr-2"></fa-icon>
-            <a [href]="eventItem.venue.direction" target="_blank">{{eventItem.venue.name}}</a></div>
-        <!-- Start- und Endzeit -->
-        <div class="text-gray-500">Startzeit: {{eventItem.startTime | date: 'dd.MM.yyyy HH:mm:ss'}}</div>
-        <div class="text-gray-500">Endzeit: {{eventItem.endTime | date: 'dd.MM.yyyy HH:mm:ss'}}</div>
+            <a [href]="eventItem.venue.direction" target="_blank">{{ eventItem.venue.name }}</a>
+        </div>
+        <div class="text-gray-500">Startzeit: {{ eventItem.startTime | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
+        <div class="text-gray-500">Endzeit: {{ eventItem.endTime | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
     </div>
-    <!-- Fab-Buttons -->
+
     <div (click)="addCartItem(eventItem)" *ngIf="isEventList" class="bg-blue-700 max-w-[2rem] max-h-[2rem] rounded-full p-3 right-4 bottom-4 absolute flex items-center justify-center cursor-pointer">
         <fa-icon [icon]="faPlus" class="text-white p-0 m-0"></fa-icon>
     </div>
@@ -29,6 +23,4 @@
          class="bg-red-700 max-w-[2rem] max-h-[2rem] rounded-full p-3 right-4 bottom-4 absolute flex items-center justify-center cursor-pointer">
         <fa-icon [icon]="faClose" class="text-white p-0 m-0"></fa-icon>
     </div>
-
-
 </div>

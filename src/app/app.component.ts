@@ -1,6 +1,6 @@
 import {Component} from "@angular/core";
 import {DataRepositoryService} from "./services/data-repository.service";
-import {EventItem, EventsByDate} from "./models/event-list.model";
+import {EventItem, EventsByDate} from "./models/event-list.models";
 
 @Component({
     selector: "app-root",

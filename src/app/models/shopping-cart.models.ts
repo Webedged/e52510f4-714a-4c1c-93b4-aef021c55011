@@ -1,4 +1,4 @@
-import {EventItem} from "./event-list.model";
+import {EventItem} from "./event-list.models";
 
 export interface ShoppingCart {
     items: EventItem[];
