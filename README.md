@@ -1,3 +1,5 @@
+Lesen Sie sich bitte genau die Datei durch, danke!
+
 # e52510f4-714a-4c1c-93b4-aef021c55011
 
 ## Anleitung zum Starten eines Angular-Projekts
