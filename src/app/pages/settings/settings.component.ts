@@ -8,6 +8,7 @@ import {EventItem, EventsByDate} from "../../models/event-list.models";
     styleUrls: ["./settings.component.scss"]
 })
 export class SettingsComponent implements OnInit {
+    // Initialisierung von Variablen
     allEventItems: EventsByDate = {};
     allLocations: string[] = [];
 
@@ -15,20 +16,28 @@ export class SettingsComponent implements OnInit {
     }
 
     public async ngOnInit(): Promise<void> {
+        // Konsolenausgabe der Einstellung "SETTING_NUMB_COLS" aus dem Local Storage
         console.log(this.dataRepo.getSettingFromLS("SETTING_NUMB_COLS"));
+
+        // Initialisierung aller Events und Speicherung in tmpAllEventItems
         await this.dataRepo.initAllEvents();
         const tmpAllEventItems = this.dataRepo.tmpAllEventItems;
+
+        // Extrahieren und Speichern der Veranstaltungsorte aus den Events
         this.allLocations = this.getAllVenueNamesFromEvents(tmpAllEventItems);
     }
 
-    public handleLocationSetting(ev: EventTarget | any) {
-        this.dataRepo.saveSettingInLS("SETTING_FAV_LOCATION", ev.value);
+    // Behandlung der Veranstaltungsort-Einstellung
+    public async handleLocationSetting(ev: EventTarget | any) {
+        await this.dataRepo.saveSettingInLS("SETTING_FAV_LOCATION", ev.value);
     }
 
-    public handleNumbersOfColsSetting(ev: EventTarget | any) {
-        this.dataRepo.saveSettingInLS("SETTING_NUMB_COLS", ev.value);
+    // Behandlung der Anzahl der Spalten-Einstellung
+    public async handleNumbersOfColsSetting(ev: EventTarget | any) {
+        await this.dataRepo.saveSettingInLS("SETTING_NUMB_COLS", ev.value);
     }
 
+    // Extrahieren aller Veranstaltungsortnamen aus den Events
     private getAllVenueNamesFromEvents(eventsByDate: EventsByDate): string[] {
         const venueNamesSet = new Set<string>();
 

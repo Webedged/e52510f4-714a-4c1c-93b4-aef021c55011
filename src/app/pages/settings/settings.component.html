@@ -1,25 +1,33 @@
 <div class="rounded bg-white h-screen p-4">
+    <!-- Überschrift für die Einstellungen -->
     <div class="font-bold text-3xl text-blue-700 mb-4">Einstellungen</div>
+
     <div class="w-1/2">
+        <!-- Dropdown-Menü für den Veranstaltungsort -->
         <div class="mb-4">
             <label class="block font-medium mb-1" for="location">Veranstaltungsort</label>
             <select (change)="handleLocationSetting($event.target)" class="border p-2 rounded w-full" id="location" name="location">
+                <!-- Schleife durch alle Veranstaltungsorte -->
                 <ng-container *ngFor="let location of allLocations">
+                    <!-- Option für jeden Veranstaltungsort -->
                     <option [selected]="dataRepo.getSettingFromLS('SETTING_FAV_LOCATION') === location" value="{{ location }}">{{ location }}</option>
                 </ng-container>
             </select>
+            <!-- Button zum Löschen des ausgewählten Veranstaltungsorts -->
             <button (click)="dataRepo.deleteSettingFromLS('SETTING_FAV_LOCATION')" class="text-red-500 ml-2">Löschen</button>
         </div>
 
+        <!-- Dropdown-Menü für die Anzahl der Events pro Reihe -->
         <div class="mb-4">
             <label class="block font-medium mb-1" for="eventsPerRow">Anzahl der Events pro Reihe</label>
             <select (change)="handleNumbersOfColsSetting($event.target)" class="border p-2 rounded w-full" id="eventsPerRow" name="eventsPerRow">
+                <!-- Optionen für verschiedene Anzahlen von Events pro Reihe -->
                 <option [selected]="dataRepo.getSettingFromLS('SETTING_NUMB_COLS') === '2'" value="2">2</option>
                 <option [selected]="dataRepo.getSettingFromLS('SETTING_NUMB_COLS') === '3'" value="3">3</option>
                 <option [selected]="dataRepo.getSettingFromLS('SETTING_NUMB_COLS') === '4' || dataRepo.getSettingFromLS('SETTING_NUMB_COLS') === null" value="4">4</option>
             </select>
+            <!-- Button zum Löschen der ausgewählten Anzahl von Events pro Reihe -->
             <button (click)="dataRepo.deleteSettingFromLS('SETTING_NUMB_COLS')" class="text-red-500 ml-2">Löschen</button>
         </div>
     </div>
-
 </div>

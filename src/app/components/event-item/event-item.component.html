@@ -1,24 +1,32 @@
 <div class="bg-white shadow-md rounded-lg overflow-hidden m-4 relative">
     <div class="p-4 flex items-center">
+        <!-- Rundes Platzhalterbild -->
         <div class="min-w-[3rem] min-h-[3rem] rounded-full bg-gray-300 mr-4"></div>
+        <!-- Veranstaltungstitel -->
         <div class="font-semibold text-lg">{{ eventItem.title }}</div>
     </div>
 
+    <!-- Veranstaltungsbild mit Lazy Loading -->
     <img [src]="eventItem.flyerFront ?? 'https://i0.wp.com/blankhans.io/wp-content/uploads/2021/08/placeholder.png?w=1200&ssl=1'" alt="Veranstaltungsbild" class="w-full" loading="lazy">
 
     <div class="p-4">
+        <!-- Veranstaltungsort und Link zur Richtungsanzeige -->
         <div class="text-gray-500">
             <fa-icon [icon]="faLocationDot" class="text-blue-700 mr-2"></fa-icon>
             <a [href]="eventItem.venue.direction" target="_blank">{{ eventItem.venue.name }}</a>
         </div>
+        <!-- Startzeit der Veranstaltung -->
         <div class="text-gray-500">Startzeit: {{ eventItem.startTime | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
+        <!-- Endzeit der Veranstaltung -->
         <div class="text-gray-500">Endzeit: {{ eventItem.endTime | date: 'dd.MM.yyyy HH:mm:ss' }}</div>
     </div>
 
+    <!-- Schaltfläche zum Hinzufügen zum Warenkorb (nur in der Event-Liste) -->
     <div (click)="addCartItem(eventItem)" *ngIf="isEventList" class="bg-blue-700 max-w-[2rem] max-h-[2rem] rounded-full p-3 right-4 bottom-4 absolute flex items-center justify-center cursor-pointer">
         <fa-icon [icon]="faPlus" class="text-white p-0 m-0"></fa-icon>
     </div>
 
+    <!-- Schaltfläche zum Entfernen aus dem Warenkorb (nicht in der Event-Liste) -->
     <div (click)="removeCartItem(eventItem)" *ngIf="!isEventList"
          class="bg-red-700 max-w-[2rem] max-h-[2rem] rounded-full p-3 right-4 bottom-4 absolute flex items-center justify-center cursor-pointer">
         <fa-icon [icon]="faClose" class="text-white p-0 m-0"></fa-icon>

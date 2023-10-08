@@ -9,18 +9,19 @@ import {firstValueFrom} from "rxjs";
 })
 export class DataRepositoryService {
     // Initialisiere die Eigenschaften mit den richtigen Typen und leeren Werten
-    allEventItems: EventsByDate = {};
-    tmpAllEventItems: EventsByDate = {};
-    allCartItems: ShoppingCart = {items: []};
+    public allEventItems: EventsByDate = {};
+    public tmpAllEventItems: EventsByDate = {};
+    public allCartItems: ShoppingCart = {items: []};
 
     constructor(private http: HttpClient) {
     }
 
+    // Initialisiert alle Events
     public async initAllEvents(force?: boolean): Promise<void> {
-        // Überprüfe, ob allEventItems leer ist
+        // Überprüfe, ob allEventItems leer ist oder ein Neuladen erzwungen wurde
         if (Object.keys(this.allEventItems).length === 0 || force) {
             const data: EventsByDate = this.sortDataByDate(await this.getApiData());
-            const locationName: string | null = <string>this.getSettingFromLS("SETTING_FAV_LOCATION");
+            const locationName: string | null = this.getSettingFromLS("SETTING_FAV_LOCATION") as string;
 
             // Setze die Werte für tmpAllEventItems und allCartItems
             this.tmpAllEventItems = data;
@@ -34,22 +35,7 @@ export class DataRepositoryService {
         }
     }
 
-    // Gib den richtigen Rückgabetyp für sortDataByDate an
-    sortDataByDate(events: EventItem[]): EventsByDate {
-        const groupedEvents: EventsByDate = {};
-
-        events.forEach((event) => {
-            const date = event.date.split("T")[0];
-            event.date = date;
-            if (!groupedEvents[date]) {
-                groupedEvents[date] = [];
-            }
-            groupedEvents[date].push(event);
-        });
-
-        return groupedEvents;
-    }
-
+    // Speichert eine Einstellung im Local Storage
     public async saveSettingInLS(settingName: string, value: boolean | string): Promise<void> {
         try {
             const serializedValue = typeof value === "string" ? value : JSON.stringify(value);
@@ -61,6 +47,7 @@ export class DataRepositoryService {
         await this.initAllEvents(true);
     }
 
+    // Ruft eine Einstellung aus dem Local Storage ab
     public getSettingFromLS(settingName: string): boolean | string | null {
         try {
             const serializedValue = localStorage.getItem(settingName);
@@ -77,6 +64,7 @@ export class DataRepositoryService {
         }
     }
 
+    // Löscht eine Einstellung aus dem Local Storage
     public async deleteSettingFromLS(settingName: string): Promise<void> {
         try {
             localStorage.removeItem(settingName);
@@ -85,9 +73,25 @@ export class DataRepositoryService {
         }
 
         await this.initAllEvents(true);
-
     }
 
+    // Sortiert Events nach Datum
+    private sortDataByDate(events: EventItem[]): EventsByDate {
+        const groupedEvents: EventsByDate = {};
+
+        events.forEach((event) => {
+            const date = event.date.split("T")[0];
+            event.date = date;
+            if (!groupedEvents[date]) {
+                groupedEvents[date] = [];
+            }
+            groupedEvents[date].push(event);
+        });
+
+        return groupedEvents;
+    }
+
+    // Ruft Daten von der API ab
     private async getApiData(): Promise<EventItem[]> {
         const apiUrl = "https://teclead-ventures.github.io/data/london-events.json";
         try {
@@ -99,6 +103,7 @@ export class DataRepositoryService {
         }
     }
 
+    // Filtert Events nach Veranstaltungsort
     private filterEventsByVenueName(events: EventsByDate, locationName: string): EventsByDate {
         const filteredEvents: EventsByDate = {};
 
